@@ -1,4 +1,4 @@
-public class CleaningResult
+public record CleaningResult
 {
     public required string ID { get; set; }
     public required DateTime Timestamp { get; set; }
