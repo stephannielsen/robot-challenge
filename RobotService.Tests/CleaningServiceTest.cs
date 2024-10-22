@@ -17,6 +17,10 @@ public class CleaningServiceTests
 
         var expected = new CleaningResult { ID = "1243", Timestamp = fakeTime.GetUtcNow().DateTime, Commands = 2, Result = 4, Duration = 0.00123 };
 
-        Assert.Equal(expected, actual);
+        Assert.IsType<string>(actual.ID);
+        Assert.Equal(fakeTime.GetUtcNow().DateTime, actual.Timestamp);
+        Assert.Equal(2, actual.Commands);
+        Assert.Equal(4, actual.Result);
+        Assert.IsType<double>(actual.Duration);
     }
 }

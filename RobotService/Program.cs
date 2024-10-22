@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddTransient<ICleaningService, CleaningService>();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
