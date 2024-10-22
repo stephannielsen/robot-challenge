@@ -1,4 +1,4 @@
-POST https://localhost:7287/tibber-developer-test/enter-path HTTP/1.1
+POST http://localhost:5000/tibber-developer-test/enter-path HTTP/1.1
 content-type: application/json
 
 {
