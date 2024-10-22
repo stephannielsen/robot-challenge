@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 public record CleaningPath
 {
     public required Coordinate Start { get; set; }

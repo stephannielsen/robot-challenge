@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/robot-challenge.csproj",
+                "${workspaceFolder}/RobotService/RobotService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/robot-challenge.csproj",
+                "${workspaceFolder}/RobotService/RobotService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/robot-challenge.csproj"
+                "${workspaceFolder}/RobotService/RobotService.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
