@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using RobotService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,10 +45,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Hello, please use the API :)");
 
-app.MapPost("/tibber-developer-test/enter-path", async (CleaningPath path, ICleaningService service, RobotDb db) =>
-{
-    var result = await service.Calculate(path, db);
-    return Results.Created($"/results/{result.ID}", result);
-});
+app.MapPost("/tibber-developer-test/enter-path", Endpoints.CleanPath);
 
 app.Run();

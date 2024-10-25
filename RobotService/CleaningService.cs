@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using static CleaningServiceHelper;
 
 public class CleaningService : ICleaningService
@@ -16,7 +15,7 @@ public class CleaningService : ICleaningService
         var stopwatch = Stopwatch.StartNew();
         var visitedPlaces = GetUniqueVisitedPlaces(path);
         stopwatch.Stop();
-        var result = new CleaningResult { Commands = path.Commands.Length, Result = visitedPlaces, Duration = stopwatch.Elapsed.TotalSeconds };
+        var result = new CleaningResult { Timestamp = _timeProvider.GetUtcNow().DateTime, Commands = path.Commands.Length, Result = visitedPlaces, Duration = stopwatch.Elapsed.TotalSeconds };
         db.CleaningResults.Add(result);
         await db.SaveChangesAsync();
         return result;
