@@ -3,13 +3,13 @@ content-type: application/json
 
 {
     "start": {
-        "x": 10,
-        "y": 22
+        "x": -55510,
+        "y": 88888822
     },
     "commands": [
         {
             "direction": "east",
-            "steps": 2
+            "steps": -2
         },
         {
             "direction": "north",

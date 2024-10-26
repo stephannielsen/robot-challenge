@@ -17,7 +17,7 @@ public class RobotApiTests
         var input = new CleaningPath { Start = new Coordinate { X = 10, Y = 22 }, Commands = [new Command { Direction = Direction.East, Steps = 2 }, new Command { Direction = Direction.North, Steps = 1 }] };
         var result = await Endpoints.CleanPath(input, service, db);
 
-        Assert.IsType<Results<Created<CleaningResult>, BadRequest<ValidateError>>>(result);
+        Assert.IsType<Results<Created<CleaningResult>, BadRequest<ValidationProblem>>>(result);
         var actual = result.Result.TryGetPropertyValue<CleaningResult>("Value");
 
         Assert.NotNull(actual);
@@ -36,24 +36,5 @@ public class RobotApiTests
             Assert.Equal(fakeTime.GetUtcNow().DateTime, result.Timestamp);
             Assert.IsType<double>(result.Duration);
         });
-    }
-
-    [Fact]
-    public async Task CleanPath_ReturnsBadRequest ()
-    {
-        await using var db = new MockDb().CreateDbContext();
-        var fakeTime = new FakeTimeProvider(startDateTime: DateTimeOffset.UtcNow);
-        var service = new CleaningService(fakeTime);
-
-        var input = new CleaningPath { Start = new Coordinate { X = -100_001, Y = 0 }, Commands = [] };
-        var result = await Endpoints.CleanPath(input, service, db);
-
-        Assert.IsType<Results<Created<CleaningResult>, BadRequest<ValidateError>>>(result);
-        var actual = result.Result.TryGetPropertyValue<ValidateError>("Value");
-        Assert.NotNull(actual);
-        var expected = new ValidateError { Message = "Validation error: Start.X must be -100 000 <= X <= 100 000." };
-        Assert.Equal(expected, actual);
-
-        Assert.Empty(db.CleaningResults);
     }
 }

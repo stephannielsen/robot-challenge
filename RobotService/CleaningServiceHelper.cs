@@ -1,3 +1,5 @@
+namespace RobotService;
+
 public static class CleaningServiceHelper
 {
     public static int GetUniqueVisitedPlaces(CleaningPath path)

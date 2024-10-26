@@ -1,5 +1,7 @@
 using System.Diagnostics;
-using static CleaningServiceHelper;
+using static RobotService.CleaningServiceHelper;
+
+namespace RobotService;
 
 public class CleaningService : ICleaningService
 {

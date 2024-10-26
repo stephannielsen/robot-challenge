@@ -1,3 +1,5 @@
+namespace RobotService;
+
 public record CleaningResult
 {
     public int ID { get; init; }

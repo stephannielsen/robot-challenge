@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+namespace RobotService;
+
 public class RobotDb : DbContext
 {
     public RobotDb(DbContextOptions<RobotDb> options)

@@ -45,6 +45,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Hello, please use the API :)");
 
-app.MapPost("/tibber-developer-test/enter-path", Endpoints.CleanPath);
+app.MapPost("/tibber-developer-test/enter-path", Endpoints.CleanPath).AddEndpointFilter<CleaningPathIsValidFilter>();
 
 app.Run();

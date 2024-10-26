@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Time.Testing;
-using static CleaningServiceHelper;
+using static RobotService.CleaningServiceHelper;
 
 namespace RobotService.Tests;
 

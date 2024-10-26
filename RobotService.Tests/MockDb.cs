@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using RobotService;
 
 namespace RobotService.Tests.Helpers;
 
