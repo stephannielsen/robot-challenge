@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "humao.rest-client",
-        "ms-azuretools.vscode-docker"
+        "humao.rest-client"
     ]
 }

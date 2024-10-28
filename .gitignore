@@ -876,3 +876,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/csharp,windows,linux,macos,aspnetcore,dotnetcore,visualstudiocode,visualstudio,rider
 
 appsettings.Development.json
+.env

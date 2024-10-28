@@ -32,19 +32,14 @@ builder.Services.AddOpenApiDocument(config =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseOpenApi();
+app.UseSwaggerUi(config =>
 {
-    app.UseOpenApi();
-    app.UseSwaggerUi(config =>
-    {
-        config.DocumentTitle = "CleaningRobotAPI";
-        config.Path = "/swagger";
-        config.DocumentPath = "/swagger/{documentName}/swagger.json";
-        config.DocExpansion = "list";
-    });
-}
-
-app.MapGet("/", () => "Hello, please use the API :)");
+    config.DocumentTitle = "CleaningRobotAPI";
+    config.Path = "";
+    config.DocumentPath = "/swagger/{documentName}/swagger.json";
+    config.DocExpansion = "list";
+});
 
 app.MapPost("/tibber-developer-test/enter-path", Endpoints.CleanPath).AddEndpointFilter<CleaningPathIsValidFilter>();
 
