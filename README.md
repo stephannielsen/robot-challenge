@@ -23,11 +23,14 @@ Copy `RobotService/appsettings.json` as `RobotService/appsettings.Development.js
   }
 ```
 
-Spin up a postgres database, for example with the provided `docker-compose.postgres.yml`. First, copy and rename `.env.example` as `.env` your database details. Then:
+Spin up a postgres database, for example with the provided `docker-compose.yml`. First, copy and rename `.env.example` as `.env` your database details. Then:
 
 ```sh
+# From root directory
 docker compose up
 ```
+
+Note: The `docker-compose.override.yml` exposes the chosen Postgres port for development.
 
 ### With Devcontainer
 
@@ -43,7 +46,8 @@ Start everything:
 
 ```sh
 # From root directory
+# docker.compose.override.yml is automatically not applied
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up
 ```
 
-You can now reach the API via http://localhost:5000 and provides a SwaggerUI for the API..
+You can now reach the API via http://localhost:5000 and provides a SwaggerUI for the API.
