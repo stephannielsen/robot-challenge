@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>RobotService</RootNamespace>
+    <UserSecretsId>156704d8-bc76-4967-9001-a53b6117e058</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

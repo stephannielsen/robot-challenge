@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  robot_service:
+    user: root
+    environment:
+      CUSTOMCONNSTR_RobotDb: "Host=${POSTGRES_HOST};Port=${POSTGRES_PORT};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}"
+    build:
+      context: ./RobotService
+      dockerfile: Dockerfile
+    ports:
+      - 5000:8080

@@ -5,7 +5,29 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotService", "RobotService\RobotService.csproj", "{63CC868D-DD08-4747-95EF-958C4596031B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotService.Tests", "RobotService.Tests\RobotService.Tests.csproj", "{999D1464-3F72-4CF3-A411-560C18925B37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotService.Tests", "RobotService.Tests\RobotService.Tests.csproj", "{999D1464-3F72-4CF3-A411-560C18925B37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECB6B510-0DFD-40F2-968B-8F44433419BB}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.env = .env
+		.env.example = .env.example
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		docker-compose.override.yml = docker-compose.override.yml
+		docker-compose.yml = docker-compose.yml
+		docker-compose.prod.yml = docker-compose.prod.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".devcontainer", ".devcontainer", "{02A65A44-BB90-4343-83B9-7AED55C04924}"
+	ProjectSection(SolutionItems) = preProject
+		.devcontainer\.env = .devcontainer\.env
+		.devcontainer\devcontainer.json = .devcontainer\devcontainer.json
+		.devcontainer\docker-compose.yml = .devcontainer\docker-compose.yml
+		.devcontainer\Dockerfile = .devcontainer\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +46,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02A65A44-BB90-4343-83B9-7AED55C04924} = {ECB6B510-0DFD-40F2-968B-8F44433419BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0A3E0D2-8E61-4F60-8FA4-113CCBBA7528}

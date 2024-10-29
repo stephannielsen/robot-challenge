@@ -23,28 +23,27 @@ Copy `RobotService/appsettings.json` as `RobotService/appsettings.Development.js
   }
 ```
 
-You can run a sample Postgres container as database like this or use your own:
+Spin up a postgres database, for example with the provided `docker-compose.postgres.yml`. First, copy and rename `.env.example` as `.env` your database details. Then:
 
 ```sh
+docker compose up
 ```
 
 ### With Devcontainer
 
-Copy and rename `.env.example` as `.env` into `.devcontainer` folder and set tour database details.
-
-Note: If you want to change the Postgres credentials after you have created the devcontainer for the first time, you might need to remove the volumes manually first, otherwise the credentials are not updated.
+Copy and rename `.env.example` as `.env` into `.devcontainer` folder and set your database details.
 
 ## Release Build
 
-A `Dockerfile` and `docker-compose.yml` are provided to run the API as Release build on port 5000.
+A `Dockerfile` and `docker-compose.prod.yml` are provided to run the API as Release build on port 5000.
 
-First, create a copy of `.env.example` as `.env` and set the values as described above. The file can be identical to `/.devcontainer/.env`.
+First, create a copy of `.env.example` as `.env` and set the values.
 
 Start everything:
 
 ```sh
 # From root directory
-docker compose up
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up
 ```
 
 You can now reach the API via http://localhost:5000 and provides a SwaggerUI for the API..
