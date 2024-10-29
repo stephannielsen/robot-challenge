@@ -5,10 +5,12 @@ namespace RobotService;
 
 public static class CleaningServiceHelper
 {
+    const byte Dummy = byte.MinValue;
+
     public static int GetUniqueVisitedPlaces(CleaningPath path)
     {
-        var visited = new ConcurrentHashSet<Coordinate>(path.Commands.Length);
-        visited.Add(path.Start);
+        var visited = new ConcurrentDictionary<Coordinate, byte>();
+        visited.TryAdd(path.Start, Dummy);
 
         var x = path.Start.X;
         var y = path.Start.Y;
@@ -37,7 +39,7 @@ public static class CleaningServiceHelper
             {
                 x += dx;
                 y += dy;
-                visited.Add(new Coordinate { X = x, Y = y });
+                visited.TryAdd(new Coordinate { X = x, Y = y }, Dummy);
             }
         });
         return visited.Count;
