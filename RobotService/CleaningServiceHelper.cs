@@ -1,18 +1,19 @@
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Collections.Concurrent;
+
 namespace RobotService;
 
 public static class CleaningServiceHelper
 {
     public static int GetUniqueVisitedPlaces(CleaningPath path)
     {
-        var visited = new HashSet<Coordinate>
-        {
-            path.Start
-        };
+        var visited = new ConcurrentHashSet<Coordinate>(path.Commands.Length);
+        visited.Add(path.Start);
 
         var x = path.Start.X;
         var y = path.Start.Y;
 
-        foreach (var command in path.Commands)
+        Parallel.ForEach(path.Commands, (command) =>
         {
             // determine direction once for all steps
             int dx = 0, dy = 0;
@@ -38,7 +39,7 @@ public static class CleaningServiceHelper
                 y += dy;
                 visited.Add(new Coordinate { X = x, Y = y });
             }
-        }
+        });
         return visited.Count;
     }
 }

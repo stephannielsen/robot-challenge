@@ -15,8 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		docker-compose.override.yml = docker-compose.override.yml
-		docker-compose.yml = docker-compose.yml
 		docker-compose.prod.yml = docker-compose.prod.yml
+		docker-compose.yml = docker-compose.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -27,6 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".devcontainer", ".devcontai
 		.devcontainer\devcontainer.json = .devcontainer\devcontainer.json
 		.devcontainer\docker-compose.yml = .devcontainer\docker-compose.yml
 		.devcontainer\Dockerfile = .devcontainer\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{F734A3E9-7AF5-4337-B6FB-FCFFDD218CE4}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\generate_paths.sh = scripts\generate_paths.sh
+		scripts\send_paths.ps1 = scripts\send_paths.ps1
+		scripts\send_paths.sh = scripts\send_paths.sh
 	EndProjectSection
 EndProject
 Global
@@ -49,6 +56,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02A65A44-BB90-4343-83B9-7AED55C04924} = {ECB6B510-0DFD-40F2-968B-8F44433419BB}
+		{F734A3E9-7AF5-4337-B6FB-FCFFDD218CE4} = {ECB6B510-0DFD-40F2-968B-8F44433419BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0A3E0D2-8E61-4F60-8FA4-113CCBBA7528}
