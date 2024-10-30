@@ -5,19 +5,15 @@ namespace RobotService;
 
 public static class CleaningServiceHelper
 {
-    const byte Dummy = byte.MinValue;
-
     public static int GetUniqueVisitedPlaces(CleaningPath path)
     {
-        var visited = new ConcurrentDictionary<Coordinate, byte>();
-        visited.TryAdd(path.Start, Dummy);
+        var visited = new HashSet<Coordinate> { path.Start };
 
-        var x = path.Start.X;
-        var y = path.Start.Y;
+        int x = path.Start.X;
+        int y = path.Start.Y;
 
-        Parallel.ForEach(path.Commands, (command) =>
+        foreach (var command in path.Commands)
         {
-            // determine direction once for all steps
             int dx = 0, dy = 0;
             switch (command.Direction)
             {
@@ -39,9 +35,10 @@ public static class CleaningServiceHelper
             {
                 x += dx;
                 y += dy;
-                visited.TryAdd(new Coordinate { X = x, Y = y }, Dummy);
+                visited.Add(new Coordinate { X = x, Y = y });
             }
-        });
+        }
+
         return visited.Count;
     }
 }

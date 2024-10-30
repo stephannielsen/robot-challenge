@@ -1,26 +1,28 @@
 param (
-    [string]$directory = "./paths",
-    [int]$port = 5000
+    [int]$port = 5000,
+    [string]$pathDir = "paths"
 )
 
-if (!(Test-Path -Path $directory)) {
-    Write-Host "Directory $directory does not exist."
-    exit 1
-}
+# Lade alle JSON-Dateien aus dem Verzeichnis
+$files = Get-ChildItem -Path $pathDir -Filter *.json
 
-$files = Get-ChildItem -Path $directory -Filter *.json
-
-# Send one POST request per path file
 foreach ($file in $files) {
-    $jsonContent = Get-Content -Path $file.FullName -Raw
-    $url = "http://localhost:$port/tibber-developer-test/enter-path"
+    # Lade den JSON-Inhalt der Datei
+    $jsonContent = Get-Content -Path $file.FullName -Raw | ConvertFrom-Json
 
-    try {
-        $response = Invoke-RestMethod -Uri $url -Method Post -Body $jsonContent -ContentType "application/json"
+    # Hole die erwartete Anzahl an uniquePlaces aus dem JSON
+    $expectedUniquePlaces = $jsonContent.uniquePlaces
+
+    # Schicke die POST-Anfrage
+    $response = Invoke-RestMethod -Uri "http://localhost:$port/tibber-developer-test/enter-path" -Method Post -Body ($jsonContent | ConvertTo-Json) -ContentType "application/json"
         Write-Host "Sent $($file.Name) successfully. Server response:"
         Write-Host $response
+    # Pr�fen, ob die Antwort den erwarteten Wert zur�ckgibt
+    $resultUniquePlaces = $response.result
+    if ($resultUniquePlaces -eq $expectedUniquePlaces) {
+        Write-Output "Test erfolgreich f�r $($file.Name): Erwartet = $expectedUniquePlaces, Ergebnis = $resultUniquePlaces"
     }
-    catch {
-        Write-Host "Failed to send $($file.Name): $_"
+    else {
+        Write-Output "Test fehlgeschlagen f�r $($file.Name): Erwartet = $expectedUniquePlaces, Ergebnis = $resultUniquePlaces"
     }
 }
