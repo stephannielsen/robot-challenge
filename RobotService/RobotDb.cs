@@ -2,11 +2,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RobotService;
 
-public class RobotDb : DbContext
+public class RobotDb(DbContextOptions<RobotDb> options) : DbContext(options)
 {
-    public RobotDb(DbContextOptions<RobotDb> options)
-        : base(options) { }
-
     public DbSet<CleaningResult> CleaningResults => Set<CleaningResult>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

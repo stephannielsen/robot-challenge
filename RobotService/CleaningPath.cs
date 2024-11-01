@@ -2,8 +2,8 @@ namespace RobotService;
 
 public record CleaningPath
 {
-    public required Coordinate Start { get; set; }
-    public required Command[] Commands { get; set; }
+    public required Coordinate Start { get; init; }
+    public required Command[] Commands { get; init; }
 
     // Simple validation logic, could be improved e.g. with Fluent Validation
     public static string? IsValid(CleaningPath path)
@@ -30,8 +30,8 @@ public record CleaningPath
 
 public record Coordinate
 {
-    public required int X { get; set; }
-    public required int Y { get; set; }
+    public required int X { get; init; }
+    public required int Y { get; init; }
 }
 
 public enum Direction
@@ -41,6 +41,6 @@ public enum Direction
 
 public record Command
 {
-    public required Direction Direction { get; set; }
-    public required int Steps { get; set; }
+    public required Direction Direction { get; init; }
+    public required int Steps { get; init; }
 }
