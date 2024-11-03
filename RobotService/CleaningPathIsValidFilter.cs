@@ -2,14 +2,12 @@ namespace RobotService;
 
 public class CleaningPathIsValidFilter : IEndpointFilter
 {
-    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext efiContext, 
+    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext efiContext,
         EndpointFilterDelegate next)
     {
         var path = efiContext.GetArgument<CleaningPath>(0);
 
-        var validationError = CleaningPath.IsValid(path!);
-
-        if (validationError is not null)
+        if (!CleaningPath.IsValid(path!, out string validationError))
         {
             return Results.Problem(validationError, statusCode: 400);
         }
