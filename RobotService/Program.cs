@@ -32,6 +32,11 @@ builder.Services.AddOpenApiDocument(config =>
 
 var app = builder.Build();
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(exceptionHandler => exceptionHandler.Run(async context => await Results.Problem().ExecuteAsync(context)));
+}
+
 app.UseOpenApi();
 app.UseSwaggerUi(config =>
 {
