@@ -41,6 +41,6 @@ app.UseSwaggerUi(config =>
     config.DocExpansion = "list";
 });
 
-app.MapPost("/tibber-developer-test/enter-path", Endpoints.CleanPath).AddEndpointFilter<CleaningPathIsValidFilter>();
+app.MapPost("/tibber-developer-test/enter-path", ApiHandler.CalculateCleaningPath).AddEndpointFilter<CleaningPathIsValidFilter>();
 
 app.Run();

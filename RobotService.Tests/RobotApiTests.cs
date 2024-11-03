@@ -15,7 +15,7 @@ public class RobotApiTests
         var service = new CleaningService(fakeTime);
 
         var input = new CleaningPath { Start = new Coordinate { X = 10, Y = 22 }, Commands = [new Command { Direction = Direction.East, Steps = 2 }, new Command { Direction = Direction.North, Steps = 1 }] };
-        var result = await Endpoints.CleanPath(input, service, db);
+        var result = await ApiHandler.CalculateCleaningPath(input, service, db);
 
         Assert.IsType<Results<Created<CleaningResult>, BadRequest<ValidationProblem>>>(result);
         var actual = result.Result.TryGetPropertyValue<CleaningResult>("Value");
