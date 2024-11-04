@@ -27,7 +27,7 @@ public class CleaningServiceHelperTests
 
     [Theory]
     [MemberData(nameof(CleaningPathData))]
-    public void GetUniqueVisitedPlacesReturnsUniquePlaces(CleaningPath inputPath, int expectedVisited)
+    public void GetUniqueVisitedPlaces_ReturnsUniquePlaces(CleaningPath inputPath, int expectedVisited)
     {
         var actualVisited = GetUniqueVisitedPlaces(inputPath);
 
