@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -11,11 +10,6 @@ public class TestWebApplicationFactory<TProgram>
 {
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        builder.ConfigureHostConfiguration(config =>
-        {
-            config.AddInMemoryCollection(new Dictionary<string, string?> { { "EmailAddress", "test1@snielsen.de" } });
-        });
-
         builder.ConfigureServices(services =>
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<RobotDb>));

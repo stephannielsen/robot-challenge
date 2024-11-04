@@ -24,45 +24,30 @@ public class PathGeneratorHelper
             Direction direction = (Direction)random.Next(4);
             int steps = random.Next(1, 100000);
 
-            int newX = x;
-            int newY = y;
-            switch (direction)
-            {
-                case Direction.North:
-                    newY += steps;
-                    break;
-                case Direction.East:
-                    newX += steps;
-                    break;
-                case Direction.South:
-                    newY -= steps;
-                    break;
-                case Direction.West:
-                    newX -= steps;
-                    break;
-            }
+            (int newX, int newY) = direction switch
+            { 
+                Direction.North => (x, y + steps),
+                Direction.East => (x + steps, y),
+                Direction.South => (x, y - steps),
+                Direction.West => (x - steps, y),
+                _ => (x, y)
+            };
 
+            // Check if new point is in bounds of grid, otherwise skip this command and go to next one, we don't care
             if (newX < -100000 || newX > 100000 || newY < -100000 || newY > 100000)
             {
                 continue;
             }
-
-            int dx = 0, dy = 0;
-            switch (direction)
+            
+            // keep track of visited points for final unique places
+            (int dx, int dy) = direction switch
             {
-                case Direction.North:
-                    dy = 1;
-                    break;
-                case Direction.East:
-                    dx = 1;
-                    break;
-                case Direction.South:
-                    dy = -1;
-                    break;
-                case Direction.West:
-                    dx = -1;
-                    break;
-            }
+                Direction.North => (0, 1),
+                Direction.East => (1, 0),
+                Direction.South => (0, -1),
+                Direction.West => (-1, 0),
+                _ => (0, 0),
+            };
             for (int j = 0; j < steps; j++)
             {
                 x += dx;
@@ -74,5 +59,4 @@ public class PathGeneratorHelper
 
         return new CleaningPathSample { Start = visitedPoints.First(), Commands = [.. commands], UniquePlaces = visitedPoints.Count };
     }
-
 }

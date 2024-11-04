@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace RobotService;
 
 public class CleaningPathIsValidFilter : IEndpointFilter

@@ -5,7 +5,6 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddDbContextPool<RobotDb>(opt =>
 {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("RobotDb"));
@@ -46,7 +45,7 @@ app.UseSwaggerUi(config =>
     config.DocExpansion = "list";
 });
 
-app.MapPost("/tibber-developer-test/enter-path", ApiHandler.CalculateCleaningPath).AddEndpointFilter<CleaningPathIsValidFilter>();
+app.MapPost("/tibber-developer-test/enter-path", RobotApiHandler.CalculateCleaningPath).AddEndpointFilter<CleaningPathIsValidFilter>();
 
 app.Run();
 public partial class Program

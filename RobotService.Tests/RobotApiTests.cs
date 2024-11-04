@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,6 @@ using RobotService.Tests.Helpers;
 
 namespace RobotService.Tests;
 
-[Collection("Sequential")]
 public class RobotApiTests(TestWebApplicationFactory<Program> factory) : IClassFixture<TestWebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient = factory.CreateClient();

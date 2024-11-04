@@ -98,7 +98,7 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
 
 Just run `dotnet test` from root directory. This runs all tests in the solution.
 
-For `RobotService` this means running unit tests and integration tests against an in-memory databse.
+For `RobotService` this means running unit tests and integration tests against an in-memory database.
 
 ## Utilities
 

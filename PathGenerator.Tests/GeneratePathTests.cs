@@ -4,12 +4,14 @@ namespace PathGenerator.Tests
 {
     public class GeneratePathTests
     {
-        [Fact]
-        public void GeneratePath_ValidPath_ReturnsPath()
+        [Theory]
+        [InlineData(100)]
+        [InlineData(10)]
+        [InlineData(1)]
+        [InlineData(0)]
+        public void GeneratePath_ValidPath_ReturnsPath(int commandCount)
         {
-            var commandCount = 100;
-
-            CleaningPathSample path = PathGeneratorHelper.GeneratePath( commandCount);
+            CleaningPathSample path = PathGeneratorHelper.GeneratePath(commandCount);
 
             Assert.True(path.Start.X >= -100000 && path.Start.X <= 100000);
             Assert.True(path.Start.Y >= -100000 && path.Start.Y <= 100000);
@@ -18,7 +20,7 @@ namespace PathGenerator.Tests
         }
 
         [Fact]
-        public void GeneratePath_PathStaysWithinBounds_ReturnsPath()
+        public void GeneratePath_PathStaysWithinBounds()
         {
             CleaningPathSample path = PathGeneratorHelper.GeneratePath(100);
 
@@ -26,23 +28,15 @@ namespace PathGenerator.Tests
             int lastY = path.Start.Y;
             foreach (var command in path.Commands)
             {
-                int newX = lastX;
-                int newY = lastY;
-                switch (command.Direction)
+                (int newX, int newY) = command.Direction switch
                 {
-                    case Direction.North:
-                        newY += command.Steps;
-                        break;
-                    case Direction.East:
-                        newX += command.Steps;
-                        break;
-                    case Direction.South:
-                        newY -= command.Steps;
-                        break;
-                    case Direction.West:
-                        newX -= command.Steps;
-                        break;
-                }
+                    Direction.North => (lastX, lastY + command.Steps),
+                    Direction.East => (lastX + command.Steps, lastY),
+                    Direction.South => (lastX, lastY - command.Steps),
+                    Direction.West => (lastX - command.Steps, lastY),
+                    _ => (lastX, lastY)
+                };
+
                 Assert.True(newX >= -100000 && newX <= 100000);
                 Assert.True(newY >= -100000 && newY <= 100000);
                 lastX = newX;
@@ -51,7 +45,7 @@ namespace PathGenerator.Tests
         }
 
         [Fact]
-        public void GeneratePath_UniquePlacesAreCorrect_ReturnsPath()
+        public void GeneratePath_UniquePlacesAreCorrect()
         {
             CleaningPathSample path = PathGeneratorHelper.GeneratePath(100);
 
@@ -60,22 +54,14 @@ namespace PathGenerator.Tests
             int y = path.Start.Y;
             foreach (var command in path.Commands)
             {
-                int dx = 0, dy = 0;
-                switch (command.Direction)
+                (int dx, int dy) = command.Direction switch
                 {
-                    case Direction.North:
-                        dy = 1;
-                        break;
-                    case Direction.East:
-                        dx = 1;
-                        break;
-                    case Direction.South:
-                        dy = -1;
-                        break;
-                    case Direction.West:
-                        dx = -1;
-                        break;
-                }
+                    Direction.North => (0, 1),
+                    Direction.East => (1, 0),
+                    Direction.South => (0, -1),
+                    Direction.West => (-1, 0),
+                    _ => (0, 0),
+                };
                 for (int j = 0; j < command.Steps; j++)
                 {
                     x += dx;
