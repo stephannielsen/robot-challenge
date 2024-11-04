@@ -105,3 +105,5 @@ For `RobotService` this means running unit tests and integration tests against a
 The `PathGenerator` project is a small CLI for generating large path samples. Paths are stored under `/paths` in separate `.json` files for each path. The path includes the `uniquePlaces` for each paths, to allow for quickly verifying the `RobotService` results.
 
 In the `scripts` folder, are a PowerShell and Bash script for sending a folder of generated JSON path files to the locally running service.
+
+In `RestClient` folder, you find a `.http` file for sending a requests from your IDE if it supports `.http` files.
