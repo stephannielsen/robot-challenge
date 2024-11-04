@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>RobotService</RootNamespace>
     <UserSecretsId>156704d8-bc76-4967-9001-a53b6117e058</UserSecretsId>
+	<AnalysisMode>recommended</AnalysisMode>
   </PropertyGroup>
 
   <ItemGroup>
