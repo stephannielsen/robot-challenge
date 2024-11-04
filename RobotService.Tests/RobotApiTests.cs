@@ -51,9 +51,9 @@ public class RobotApiTests(TestWebApplicationFactory<Program> factory) : IClassF
 
     [Theory]
     [MemberData(nameof(InvalidPaths))]
-    public async Task PostCleaningPath_InvalidPaths(CleaningPath path, Dictionary<string, string[]> expectedErrors)
+    public async Task PostCleaningPath_InvalidPaths(CleaningPath inputPath, Dictionary<string, string[]> expectedErrors)
     {
-        var response = await _httpClient.PostAsJsonAsync("/tibber-developer-test/enter-path", path);
+        var response = await _httpClient.PostAsJsonAsync("/tibber-developer-test/enter-path", inputPath);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -63,20 +63,42 @@ public class RobotApiTests(TestWebApplicationFactory<Program> factory) : IClassF
         Assert.Equal(expectedErrors, actualError.Errors);
     }
 
-    [Fact]
-    public async Task PostCleaningPath_Valid()
+    public static IEnumerable<object[]> ValidPaths =>
+    [
+        [new CleaningPath { Start = new Coordinate { X = 10, Y = 22 }, Commands = [new Command { Direction = Direction.East, Steps = 2 }, new Command { Direction = Direction.North, Steps = 1 }] }, 4],
+        [new CleaningPath { Start = new Coordinate { X = -43695, Y = -52014 }, Commands = [
+            new Command { Direction = Direction.West, Steps = 55301 },
+            new Command { Direction = Direction.South, Steps = 39162 },
+            new Command { Direction = Direction.East, Steps = 89135 },
+            new Command { Direction = Direction.North, Steps = 80438 }
+        ] }, 264037 ],
+        [new CleaningPath { Start = new Coordinate { X = 44743, Y = 74509 }, Commands = [
+            new Command { Direction = Direction.East, Steps = 7104 },
+            new Command { Direction = Direction.West, Steps = 95949 },
+            new Command { Direction = Direction.West, Steps = 10470 },
+            new Command { Direction = Direction.East, Steps = 21889 },
+            new Command { Direction = Direction.West, Steps = 17842 },
+            new Command { Direction = Direction.East, Steps = 15013 },
+            new Command { Direction = Direction.East, Steps = 4711 }
+        ] }, 106420 ],
+    ];
+
+    [Theory]
+    [MemberData(nameof(ValidPaths))]
+    public async Task PostCleaningPath_Valid(CleaningPath inputPath, int expectedResult)
     {
-        var inputPath = new CleaningPath { Start = new Coordinate { X = 10, Y = 22 }, Commands = [new Command { Direction = Direction.East, Steps = 2 }, new Command { Direction = Direction.North, Steps = 1 }] };
         var response = await _httpClient.PostAsJsonAsync("/tibber-developer-test/enter-path", inputPath);
-        var actual = await response.Content.ReadFromJsonAsync<CleaningResult>();
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-        Assert.NotNull(actual);
 
-        Assert.Equal(2, actual.Commands);
-        Assert.Equal(4, actual.Result);
+        var actual = await response.Content.ReadFromJsonAsync<CleaningResult>();
+
+        Assert.NotNull(actual);
+        Assert.Equal(inputPath.Commands.Length, actual.Commands);
+        Assert.Equal(expectedResult, actual.Result);
         Assert.IsType<int>(actual.ID);
         Assert.IsType<DateTime>(actual.Timestamp);
         Assert.IsType<double>(actual.Duration);
+        Assert.True(actual.Duration > 0);
     }
 }
