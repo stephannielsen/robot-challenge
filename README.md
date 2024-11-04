@@ -51,3 +51,21 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up
 ```
 
 You can now reach the API via http://localhost:5000 and provides a SwaggerUI for the API.
+
+If you make changes, make sure to rebuild the container:
+
+```
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+```
+
+## Testing
+
+Just run `dotnet test` from root directory. This runs all tests in the solution.
+
+For `RobotService` this means running unit tests and integration tests against an in-memory databse.
+
+## Utilities
+
+The `PathGenerator` project is a small CLI for generating large path samples. Paths are stored under `/paths` in separate `.json` files for each path. The path includes the `uniquePlaces` for each paths, to allow for quickly verifying the `RobotService` results.
+
+In the `scripts` folder, are a PowerShell and Bash script for sending a folder of generated JSON path files to the locally running service.

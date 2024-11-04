@@ -49,3 +49,5 @@ app.UseSwaggerUi(config =>
 app.MapPost("/tibber-developer-test/enter-path", ApiHandler.CalculateCleaningPath).AddEndpointFilter<CleaningPathIsValidFilter>();
 
 app.Run();
+public partial class Program
+{ }
