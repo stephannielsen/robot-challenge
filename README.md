@@ -23,7 +23,10 @@ Copy `RobotService/appsettings.json` as `RobotService/appsettings.Development.js
   }
 ```
 
-Spin up a postgres database, for example with the provided `docker-compose.yml`. First, copy and rename `.env.example` as `.env` your database details. Then:
+Spin up a postgres database, for example with the provided `docker-compose.yml`.
+Copy and rename `.env.example` as `.env` your database details.
+
+Then:
 
 ```sh
 # From root directory
@@ -77,6 +80,7 @@ Note: You can generate the SQL for the given EF migration via: `dotnet ef migrat
 A `Dockerfile` and `docker-compose.prod.yml` are provided to run the API as Release build on port 5000.
 
 First, create a copy of `.env.example` as `.env` and set the values.
+On macOS, port 5000 is often in use by the system, so try setting a different `APP_PORT` if needed.
 
 Start everything:
 
