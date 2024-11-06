@@ -4,10 +4,14 @@ public static class CleaningServiceHelper
 {
     public static int GetUniqueVisitedPlaces(CleaningPath path)
     {
-        HashSet<Coordinate> visited = [path.Start];
+        var visited = new Dictionary<int, HashSet<int>>();
 
         int x = path.Start.X;
         int y = path.Start.Y;
+
+        int uniquePlaces = 0;
+
+        AddVisited(x, y, ref visited, ref uniquePlaces);
 
         foreach (var command in path.Commands)
         {
@@ -17,11 +21,24 @@ public static class CleaningServiceHelper
             {
                 x += dx;
                 y += dy;
-                visited.Add(new Coordinate { X = x, Y = y });
+                AddVisited(x, y, ref visited, ref uniquePlaces);
             }
         }
 
-        return visited.Count;
+        return uniquePlaces;
+    }
+
+    static void AddVisited(int x, int y, ref Dictionary<int, HashSet<int>> visited, ref int uniquePlaces)
+    {
+        if (!visited.TryGetValue(x, out var visitedYCoordinates))
+        {
+            visitedYCoordinates = [];
+            visited[x] = visitedYCoordinates;
+        }
+        if (visitedYCoordinates.Add(y))
+        {
+            uniquePlaces++;
+        }
     }
 
     static (int dx, int dy) GetDirectionChange(Direction direction)

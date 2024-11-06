@@ -1,9 +1,21 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using static RobotService.CleaningServiceHelper;
 
 namespace RobotService.Tests;
 
 public class CleaningServiceHelperTests
 {
+    private JsonSerializerOptions _options;
+    public CleaningServiceHelperTests()
+    {
+        _options = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        _options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+    }
+
     public static IEnumerable<object[]> CleaningPathData =>
     [
         [new CleaningPath { Start = new Coordinate { X = 10, Y = 22 }, Commands = [new Command { Direction = Direction.East, Steps = 2 }, new Command { Direction = Direction.North, Steps = 1 }] }, 4],
@@ -31,5 +43,19 @@ public class CleaningServiceHelperTests
         var actualVisited = GetUniqueVisitedPlaces(inputPath);
 
         Assert.Equal(expectedVisited, actualVisited);
+    }
+
+    [Fact]
+    public async Task GetUniqueVisitedPlaces_HeavyPath_ReturnsUniquePlaces()
+    {
+        var file = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("paths", "robotcleanerpathheavy.json"));
+        var json = await File.ReadAllTextAsync(file);
+
+        CleaningPath? path = JsonSerializer.Deserialize<CleaningPath>(json, _options);
+
+        Assert.NotNull(path);
+
+        var actualVisited = GetUniqueVisitedPlaces(path);
+        Assert.Equal(993737501, actualVisited);
     }
 }

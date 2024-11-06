@@ -27,4 +27,10 @@
     <ProjectReference Include="..\RobotService\RobotService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="paths\robotcleanerpathheavy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
