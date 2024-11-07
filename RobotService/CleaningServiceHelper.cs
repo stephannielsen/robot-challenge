@@ -1,10 +1,15 @@
+using System.Collections;
+
 namespace RobotService;
 
 public static class CleaningServiceHelper
 {
+    const int GRID_MAX = 200000;
+    const int START_OFFSET = GRID_MAX / 2;
+
     public static int GetUniqueVisitedPlaces(CleaningPath path)
     {
-        var visited = new Dictionary<int, HashSet<int>>();
+        var visited = new Dictionary<int, BitArray>();
 
         int x = path.Start.X;
         int y = path.Start.Y;
@@ -28,15 +33,16 @@ public static class CleaningServiceHelper
         return uniquePlaces;
     }
 
-    static void AddVisited(int x, int y, ref Dictionary<int, HashSet<int>> visited, ref int uniquePlaces)
+    static void AddVisited(int x, int y, ref Dictionary<int, BitArray> visited, ref int uniquePlaces)
     {
         if (!visited.TryGetValue(x, out var visitedYCoordinates))
         {
-            visitedYCoordinates = [];
+            visitedYCoordinates = new BitArray(GRID_MAX);
             visited[x] = visitedYCoordinates;
         }
-        if (visitedYCoordinates.Add(y))
+        if (!visitedYCoordinates[y + START_OFFSET])
         {
+            visitedYCoordinates[y + START_OFFSET] = true;
             uniquePlaces++;
         }
     }
